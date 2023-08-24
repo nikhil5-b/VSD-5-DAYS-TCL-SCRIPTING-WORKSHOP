@@ -11,4 +11,5 @@ TCL, which stands for Tool Command Language, is a versatile and dynamic scriptin
 Create a unique User Interface(UI) that takes RTL netlist & SDC constraints as inputs, and generate synthesized netlsit and Pre-layout timing report as an output. It should use Yosys Open source tool for synthesis and Opentimer to generate pre-layout timing reports
 
 **Steps to follow to achieve the objective :**
+
 Create a command and pass .csv file from UNIX shell to tcl script
