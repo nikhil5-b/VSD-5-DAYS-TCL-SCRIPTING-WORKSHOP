@@ -22,7 +22,7 @@ Creating a TCL Script and passing .csv file from UNIX shell as an argument to th
 
 Using VSDSYNTH tool box, create a shell command and pass .csv from UNIX shell to Tcl script(vsdsynth.tcl)
 
-Create a tcsh shell excutable file vsdsynth.tcl, create logo "VSD" and give it excute permission.
+Create a tcsh shell excutable file vsdsynth.tcl by using shebang, create logo "VSD" by using echo and give the tcl script executable permission by using chmod on the terminal.
 
 #!/bin/tcsh -f
 
