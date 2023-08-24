@@ -17,6 +17,7 @@ Create a command and pass .csv file from UNIX shell to tcl script
 
 
 **Day 1**
+
 Creating a TCL Script and passing .csv file from UNIX shell as an argument to the TCL script
 
 Using VSDSYNTH tool box, create a shell command and pass .csv from UNIX shell to Tcl script(vsdsynth.tcl)
