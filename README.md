@@ -30,13 +30,20 @@ chmod -R 777 laksh
 
 Note : Make sure the file is executable by using the above command
 
-Scenario 1: User doesn't provide an input CSV file
+**Case 1: User doesn't give any argument to the TCL script.** 
 
 
 ![Screenshot 2023-08-24 183433](https://github.com/nikhil5-b/VSD-5-DAYS-TCL-SCRIPTING-WORKSHOP/assets/52079538/a3f44c5a-18e3-440d-a25d-d68f2a732d63)
 
 
 
-Scenario 2: User providing incorrect CSV
+**Case 2: User gives .csv file as an argument but a wrong one or the path to .csv file is incorrect.**
 ![Screenshot 2023-08-24 185411](https://github.com/nikhil5-b/VSD-5-DAYS-TCL-SCRIPTING-WORKSHOP/assets/52079538/f0d003f4-e82c-4507-8e1a-926753f4b4b2)
+
+
+
+**Case 3 : User typing "-help" or In such cases the user can exercise the -help option for this particular script to know the steps involved in correct execution of the script.**
+
+![Screenshot 2023-08-24 185627](https://github.com/nikhil5-b/VSD-5-DAYS-TCL-SCRIPTING-WORKSHOP/assets/52079538/cf8cc532-e264-4bba-ac77-01747b318060)
+
 
