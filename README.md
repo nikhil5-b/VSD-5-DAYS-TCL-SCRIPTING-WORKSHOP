@@ -47,7 +47,6 @@ Note : Make sure the file is executable by using the above command
 ![Screenshot 2023-08-24 185627](https://github.com/nikhil5-b/VSD-5-DAYS-TCL-SCRIPTING-WORKSHOP/assets/52079538/cf8cc532-e264-4bba-ac77-01747b318060)
 
 
-
 Source the UNIX shell to TCL script by passing the required .csv file:
 
 tclsh vsdsyntha.tcl $argv[1]
