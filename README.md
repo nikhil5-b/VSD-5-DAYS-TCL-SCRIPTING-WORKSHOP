@@ -28,7 +28,7 @@ Create a tcsh shell excutable file vsdsynth.tcl by using shebang, create logo "V
 
 #!/bin/tcsh -f
 
-chmod -R 777 laksh 
+chmod -R 777 vsdsynth.tcl 
 
 Note : Make sure the file is executable by using the above command
 
