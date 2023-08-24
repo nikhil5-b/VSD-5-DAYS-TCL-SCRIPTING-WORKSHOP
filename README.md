@@ -34,3 +34,9 @@ Scenario 1: User doesn't provide an input CSV file
 
 
 ![Screenshot 2023-08-24 183433](https://github.com/nikhil5-b/VSD-5-DAYS-TCL-SCRIPTING-WORKSHOP/assets/52079538/a3f44c5a-18e3-440d-a25d-d68f2a732d63)
+
+
+
+Scenario 2: User providing incorrect CSV
+![Screenshot 2023-08-24 185411](https://github.com/nikhil5-b/VSD-5-DAYS-TCL-SCRIPTING-WORKSHOP/assets/52079538/f0d003f4-e82c-4507-8e1a-926753f4b4b2)
+
