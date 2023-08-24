@@ -1,6 +1,6 @@
 **TCL Workshop: From Introduction to Advanced Scripting for Design and Synthesis**
 
-**Author Name: Nikhil Bahadure**            **Mail: 5nikhilbahadure@gmail.com**
+**Author Name: Nikhil Bahadure**                        **Mail: 5nikhilbahadure@gmail.com**
 
 **Acknowledgements: TCL Workshop by Mr. Kunal Ghosh , VLSI System Design**
 
