@@ -84,6 +84,7 @@ Check the existence of directories/files in the obtained path post normalizing
 
 
 <ins>**Day 3**<ins>
+
 Opening the openMSP43_design_constraints.csv file in libreoffice which we are going to convert to sdc file.
 
 
