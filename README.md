@@ -20,7 +20,7 @@ Create a command and pass .csv file from UNIX shell to tcl script
 
 <ins>**Day 1**<ins>
 
-
+<br>
 
 Creating a TCL Script and passing .csv file from UNIX shell as an argument to the TCL script
 
@@ -61,7 +61,7 @@ tclsh vsdsynth.tcl $argv[1]
 <ins>**Day 2**<ins>
 
 
-
+<br>
 
 Extracting Data from openMSP430_design_details.csv File
 
