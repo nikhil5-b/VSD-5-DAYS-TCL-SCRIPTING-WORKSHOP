@@ -54,3 +54,26 @@ Source the UNIX shell to TCL script by passing the required .csv file:
 tclsh vsdsyntha.tcl $argv[1]
 
 
+**Day 2**
+
+
+Extracting Data from openMSP430_design_details.csv File
+
+
+Here is how the openMSP430_design_details.csv file looks like:
+
+![Screenshot 2023-08-26 190837](https://github.com/nikhil5-b/VSD-5-DAYS-TCL-SCRIPTING-WORKSHOP/assets/52079538/6e304235-9fb5-416e-9a03-88a03ae3fb9d)
+
+
+To operate on this data contained in the openMSP43_design_details.csv file, we need to create variables/pointers in our TCL script that can point to the information contained in openMSP43_design_details.csv file. A good way is to use a 2-D array datatype in the TCL script for mapping data contained in openMSP430_design_details.csv file.
+
+
+![Screenshot 2023-08-26 032725](https://github.com/nikhil5-b/VSD-5-DAYS-TCL-SCRIPTING-WORKSHOP/assets/52079538/383af8da-fe72-4f16-af6c-6c8413ae82c9)
+
+
+
+Check the existence of directories/files in the obtained path post normalizing
+
+![Screenshot 2023-08-26 035911](https://github.com/nikhil5-b/VSD-5-DAYS-TCL-SCRIPTING-WORKSHOP/assets/52079538/3a001da5-d265-4441-9700-e36b3d148f31)
+
+
