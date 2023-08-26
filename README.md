@@ -16,9 +16,11 @@ Create a unique User Interface(UI) that takes RTL netlist & SDC constraints as i
 
 Create a command and pass .csv file from UNIX shell to tcl script
 
-
+                                                              
 
 <ins>**Day 1**<ins>
+
+<br>                                                                                                        <br>
 
 Creating a TCL Script and passing .csv file from UNIX shell as an argument to the TCL script
 
