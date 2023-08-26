@@ -18,7 +18,7 @@ Create a command and pass .csv file from UNIX shell to tcl script
 
 
 
-**Day 1**
+<ins>**Day 1**<ins>
 
 Creating a TCL Script and passing .csv file from UNIX shell as an argument to the TCL script
 
