@@ -54,7 +54,7 @@ Source the UNIX shell to TCL script by passing the required .csv file:
 tclsh vsdsyntha.tcl $argv[1]
 
 
-**Day 2**
+<ins>**Day 2**<ins>
 
 
 Extracting Data from openMSP430_design_details.csv File
