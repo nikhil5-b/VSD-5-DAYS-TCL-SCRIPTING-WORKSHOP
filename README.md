@@ -83,3 +83,11 @@ Check the existence of directories/files in the obtained path post normalizing
 ![Screenshot 2023-08-26 035911](https://github.com/nikhil5-b/VSD-5-DAYS-TCL-SCRIPTING-WORKSHOP/assets/52079538/3a001da5-d265-4441-9700-e36b3d148f31)
 
 
+<ins>**Day 3**<ins>
+Opening the openMSP43_design_constraints.csv file in libreoffice which we are going to convert to sdc file.
+
+
+![Screenshot 2023-08-26 194129](https://github.com/nikhil5-b/VSD-5-DAYS-TCL-SCRIPTING-WORKSHOP/assets/52079538/f43fa028-5abb-4204-b600-749040711407)
+
+
+
