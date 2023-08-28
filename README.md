@@ -143,5 +143,39 @@ set clock_duty_cycle [lindex [lindex [constraints search rect $clock_start_colum
 ![Screenshot 2023-08-27 033201](https://github.com/nikhil5-b/VSD-5-DAYS-TCL-SCRIPTING-WORKSHOP/assets/52079538/0d1f8939-2486-4ec0-8e44-b57cad2cb446)
 
 
+Now update te values under these colums for each row into SDC file
+
+
+## Usage/Examples
+
+```javascript
+set sdc_file [open $OutputDirectory/$DesignName.sdc "w" ]
+set i [expr {$clock_start+1}]
+set end_of_ports [expr {$input_ports_start-1}]
+puts "\n Info -SDC : Working on clock constraints....."
+while { $i < $end_of_ports } {
+	puts -nonewline $sdc_file "\n create_clock -name [constraints get cell 0 $i] -period [constraints get cell 1 $i] -waveform \{0 [expr {[constraints get cell 1 $i] * [constraints get cell 2 $i]/100}]\} \[get_ports [constraints get cell 0 $i]\]"
+
+	puts -nonewline $sdc_file "\n set_clock_transition -rise -min [ constraints get cell $clock_early_rise_slew_start $i] \[get_clocks [constraints get cell 0 $i]\]"
+	puts -nonewline $sdc_file "\n set_clock_transition -fall -min [ constraints get cell $clock_early_fall_slew_start $i] \[get_clocks [constraints get cell 0 $i]\]"
+	puts -nonewline $sdc_file "\n set_clock_transition -rise -max [ constraints get cell $clock_late_rise_slew_start $i] \[get_clocks [constraints get cell 0 $i]\]"
+	puts -nonewline $sdc_file "\n set_clock_transition -fall -max [ constraints get cell $clock_late_fall_slew_start $i] \[get_clocks [constraints get cell 0 $i]\]"
+	puts -nonewline $sdc_file "\n set_clock_latency -source -early -rise [constraints get cell $clock_early_rise_delay_start $i] \[get_clocks [constraints get cell 0 $i]\]"
+	puts -nonewline $sdc_file "\n set_clock_latency -source -early -fall [constraints get cell $clock_early_fall_delay_start $i] \[get_clocks [constraints get cell 0 $i]\]"
+	puts -nonewline $sdc_file "\n set_clock_latency -source -late -rise [constraints get cell $clock_late_rise_delay_start $i] \[get_clocks [constraints get cell 0 $i]\]"
+	puts -nonewline $sdc_file "\n set_clock_latency -source -late -fall [constraints get cell $clock_late_fall_delay_start $i] \[get_clocks [constraints get cell 0 $i]\]"
+	set i [expr {$i+1}]
+	puts "\n complete $i for end of port which is 3" 
+}
+
+```
+
+
+## Screenshots
+
+
+![Screenshot 2023-08-28 001803](https://github.com/nikhil5-b/VSD-5-DAYS-TCL-SCRIPTING-WORKSHOP/assets/52079538/d6079764-b475-4976-82b1-750e535c8544)
+
+
 
 
