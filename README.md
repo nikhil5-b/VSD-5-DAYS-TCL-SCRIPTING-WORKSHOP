@@ -314,4 +314,83 @@ close $tmp2_file
 
 
 
+## Day 4
+
+## YOSYS (Yosys Open SYnthesis Suite)
+YOSYS is an open-source RTL synthesis and formal verification framework for digital circuits. It takes RTL descriptions (e.g., Verilog) as input and performs synthesis to generate a gate-level netlist. YOSYS supports technology mapping, optimization, and formal verification. It has a scripting interface, integrates with other EDA tools, and is widely used in academia and industry for digital design tasks.
+
+## Tasks:
+
+  1) **Checking the Hierarchy**
+
+  2) **Error handling**
+
+  3) **Synthesize netlist**
+
+
+## Usage/Examples
+
+```javascript
+#------------------------------------------------------------------------------------------#
+#----------------------------------------------Hireachy check------------------------------#
+#------------------------------------------------------------------------------------------#
+
+puts "\n Info: Creating hierachy check script to be used by Yosys"
+set data "read_liberty -lib -ignore_miss_dir -setattr blackbox ${LateLibraryPath}"
+set filename "$DesignName.hier.ys"
+puts "filename is \"$filename\""
+set fileId [open $OutputDirectory/$filename "w"]
+puts "open \"$OutputDirectory/$filename\" write mode"
+puts -nonewline $fileId $data
+
+set netlist [glob -dir $NetlistDirectory *.v]
+puts "Netlist is \"$netlist\""
+foreach f $netlist {
+	set data $f
+	puts "data is \"$f\""
+	puts -nonewline $fileId "\nread_verilog $f"
+}
+puts -nonewline $fileId "\nhierarchy -check"
+close $fileId
+
+puts "\nchecking hierarchy...."
+set my_err [catch { exec yosys -s $OutputDirectory/$DesignName.hier.ys >& $OutputDirectory/$DesignName.hierarchy_check.log} msg]
+puts "err flag is $my_err"
+```
+
+## Screenshots
+
+![hirarachy](https://github.com/nikhil5-b/VSD-5-DAYS-TCL-SCRIPTING-WORKSHOP/assets/52079538/8b76d2b3-d77b-47b6-b6b1-04d7f7dd0f43)
+
+
+## Usage/Examples
+
+```javascript
+if { $my_err } {
+	set filename "$OutputDirectory/$DesignName.hierarchy_check.log"
+	puts "LOg file name in $filename" 
+	set pattern {referenced in model}
+	puts "pattern in $pattern"
+	set count 0
+	set fid [open $filename r]
+	while {[gets $fid line] != -1} {
+		incr count [regexp -all -- $pattern $line]
+		if {[regexp -all -- $pattern $line]} {
+			puts "\nError: module [lindex $line 2] is not part of design $DesignName.Please correct RTL in the path '$NetlistDirectory'"
+			puts "\nInfo:Hierarchy check FAIL"
+		}
+	}
+	close $fid
+} else {
+	puts "\nINfo: Hierarchy check PASS"
+}
+puts "\nINfo: Please find the hierarchy check details in [file normalize $OutputDirectory/$DesignName.hierarchy_check.log] for more info"
+cd $working_dir
+```
+
+
+## Screenshots
+
+![hirarachy](https://github.com/nikhil5-b/VSD-5-DAYS-TCL-SCRIPTING-WORKSHOP/assets/52079538/8b76d2b3-d77b-47b6-b6b1-04d7f7dd0f43)
+
 
