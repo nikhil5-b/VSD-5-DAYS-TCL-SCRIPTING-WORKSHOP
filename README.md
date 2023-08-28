@@ -89,8 +89,11 @@ Opening the openMSP43_design_constraints.csv file in libreoffice which we are go
 
 
 Tasks of the Day :
+
 • Read the Clock, Input & Output Constraints from the file and create Synopsys Design Constraints (SDC) Format .sdc file
+
 • Take care of the bus port to create SDC file
+
 • Verify the generated .sdc file
 
 
