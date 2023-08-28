@@ -103,3 +103,20 @@ Opening the openMSP43_design_constraints.csv file in libreoffice which we are go
 
 
 
+## Running Tests
+
+CLOCKS
+
+Clock latency and transition constraints
+
+To get all the parameters under "CLOCKS" we need row and column number and traverse using them. from prev code , we know that row number for clocks = $clock_start and column number is $clock_start_column TO access them :
+
+
+## Screenshots
+
+![Screenshot 2023-08-27 033201](https://github.com/nikhil5-b/VSD-5-DAYS-TCL-SCRIPTING-WORKSHOP/assets/52079538/0d1f8939-2486-4ec0-8e44-b57cad2cb446)
+
+
+
+
+
