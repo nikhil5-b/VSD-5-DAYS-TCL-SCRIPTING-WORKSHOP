@@ -325,8 +325,6 @@ YOSYS is an open-source RTL synthesis and formal verification framework for digi
 
   2) **Error handling**
 
-  3) **Synthesize netlist**
-
 
 ## Usage/Examples
 
