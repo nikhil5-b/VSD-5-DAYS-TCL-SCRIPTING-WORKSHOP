@@ -143,7 +143,7 @@ set clock_duty_cycle [lindex [lindex [constraints search rect $clock_start_colum
 ![Screenshot 2023-08-27 033201](https://github.com/nikhil5-b/VSD-5-DAYS-TCL-SCRIPTING-WORKSHOP/assets/52079538/0d1f8939-2486-4ec0-8e44-b57cad2cb446)
 
 
-Now update te values under these colums for each row into SDC file
+Now update the values under these colums for each row into SDC file
 
 
 ## Usage/Examples
