@@ -363,6 +363,12 @@ puts "err flag is $my_err"
 ![hirarachy](https://github.com/nikhil5-b/VSD-5-DAYS-TCL-SCRIPTING-WORKSHOP/assets/52079538/8b76d2b3-d77b-47b6-b6b1-04d7f7dd0f43)
 
 
+![Screenshot 2023-08-28 184257](https://github.com/nikhil5-b/VSD-5-DAYS-TCL-SCRIPTING-WORKSHOP/assets/52079538/8ec7ebb8-c501-414a-a326-5a817ba75103)
+
+
+![Screenshot 2023-08-28 180511](https://github.com/nikhil5-b/VSD-5-DAYS-TCL-SCRIPTING-WORKSHOP/assets/52079538/aefb0c4e-3eec-48ba-87b1-cdf7aa449510)
+
+
 ## Usage/Examples
 
 ```javascript
@@ -394,3 +400,4 @@ cd $working_dir
 ![hirarachy](https://github.com/nikhil5-b/VSD-5-DAYS-TCL-SCRIPTING-WORKSHOP/assets/52079538/8b76d2b3-d77b-47b6-b6b1-04d7f7dd0f43)
 
 
+![Screenshot 2023-08-28 170140](https://github.com/nikhil5-b/VSD-5-DAYS-TCL-SCRIPTING-WORKSHOP/assets/52079538/7844da13-6bcb-4219-aff1-f48f9998551c)
