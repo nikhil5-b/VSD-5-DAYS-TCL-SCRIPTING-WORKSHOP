@@ -47,11 +47,15 @@ Note : Make sure the file is executable by using the above command
 ![Screenshot 2023-08-24 185411](https://github.com/nikhil5-b/VSD-5-DAYS-TCL-SCRIPTING-WORKSHOP/assets/52079538/f0d003f4-e82c-4507-8e1a-926753f4b4b2)
 
 
+![Screenshot 2023-08-28 223334](https://github.com/nikhil5-b/VSD-5-DAYS-TCL-SCRIPTING-WORKSHOP/assets/52079538/2371a620-0f8a-4fb0-8b0e-5191f8b7153e)
+
+
 
 **Case 3 : User typing "-help" or In such cases the user can exercise the -help option for this particular script to know the steps involved in correct execution of the script.**
 
 ![Screenshot 2023-08-24 185627](https://github.com/nikhil5-b/VSD-5-DAYS-TCL-SCRIPTING-WORKSHOP/assets/52079538/cf8cc532-e264-4bba-ac77-01747b318060)
 
+![Screenshot 2023-08-28 223439](https://github.com/nikhil5-b/VSD-5-DAYS-TCL-SCRIPTING-WORKSHOP/assets/52079538/6da5b9f0-c725-4fad-8b99-5d8ea8e42548)
 
 Source the UNIX shell to TCL script by passing the required .csv file:
 
