@@ -133,6 +133,9 @@ set clock_duty_cycle [lindex [lindex [constraints search rect $clock_start_colum
 
 **INPUT :**
 
+![Screenshot 2023-08-28 201307](https://github.com/nikhil5-b/VSD-5-DAYS-TCL-SCRIPTING-WORKSHOP/assets/52079538/0a4f636e-6b6a-49bf-a438-0e0ff1cfa765)
+
+
 ![Screenshot 2023-08-28 195828](https://github.com/nikhil5-b/VSD-5-DAYS-TCL-SCRIPTING-WORKSHOP/assets/52079538/d8cd2c9c-a80a-4341-9434-c64dd2ec0042)
 
 **OUTPUT :**
