@@ -38,6 +38,9 @@ Note : Make sure the file is executable by using the above command
 
 
 ![Screenshot 2023-08-28 221828](https://github.com/nikhil5-b/VSD-5-DAYS-TCL-SCRIPTING-WORKSHOP/assets/52079538/dffd4399-cb6d-4e3a-94c4-afeaf265ad9e)
+![Screenshot 2023-08-28 223002](https://github.com/nikhil5-b/VSD-5-DAYS-TCL-SCRIPTING-WORKSHOP/assets/52079538/1028b49e-5d8e-4a6f-ad4d-b9afa99b4333)
+
+
 
 
 **Case 2: User gives .csv file as an argument but a wrong one or the path to .csv file is incorrect.**
