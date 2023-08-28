@@ -177,5 +177,138 @@ while { $i < $end_of_ports } {
 ![Screenshot 2023-08-28 001803](https://github.com/nikhil5-b/VSD-5-DAYS-TCL-SCRIPTING-WORKSHOP/assets/52079538/d6079764-b475-4976-82b1-750e535c8544)
 
 
+## 2.Inputs
+
+To run tests, run the following command
+
+Clock ports are standard ports but the ports under inputports are not standard ports as some are single bit and some are multi bit buses.SO
+
+1)set variables for all the parameters
+2)indicate if its a bus by appending a '*' in front of the port. we can do this by
+
+i)get all the netlist files in a serial format set netlist [glob -dir $NetlistDirectory *.v] 
+
+ii)open a temporary file under write mode set tmp_file [open /tmp/1 w] 
+
+iii)now traverse for input ports through all the files and each line in the file until EOF and End of all files
+
+iv)Since we get multiple declarations of the name_to_serach in inputs and outputs, we can split each finding using ';' as a delimiter use lindex[0] to get the first declaration
+
+v)if there are multiple spaces,remove them and replace with single space as it makes a unique pattern and makes it easy to filter
+
+vi)if number of that unique pattern count is < 2 - its a single bit wire else its a multibit bus
+
+vii)Similar to clock ports ,send the input ports data to SDC file
+
+## Usage/Examples Code
+
+```javascript
+#-----------------create input delay and slew constraints----------#
+#------------------------------------------------------------------#
+
+
+set input_early_rise_delay_start [lindex [lindex [constraints search rect $clock_start_column $input_ports_start [expr {$number_of_columns-1}] [expr {$output_ports_start-1}] early_rise_delay] 0 ] 0 ]
+set input_early_fall_delay_start [lindex [lindex [constraints search rect $clock_start_column $input_ports_start [expr {$number_of_columns-1}] [expr {$output_ports_start-1}] early_fall_delay] 0 ] 0 ]
+set input_late_rise_delay_start [lindex [lindex [constraints search rect $clock_start_column $input_ports_start [expr {$number_of_columns-1}] [expr {$output_ports_start-1}] late_rise_delay] 0 ] 0 ]
+set input_late_fall_delay_start [lindex [lindex [constraints search rect $clock_start_column $input_ports_start [expr {$number_of_columns-1}] [expr {$output_ports_start-1}] late_fall_delay] 0 ] 0 ]
+
+
+
+set input_early_rise_slew_start [lindex [lindex [constraints search rect $clock_start_column $input_ports_start [expr {$number_of_columns-1}] [expr {$output_ports_start-1}] early_rise_slew] 0 ] 0 ]
+set input_early_fall_slew_start [lindex [lindex [constraints search rect $clock_start_column $input_ports_start [expr {$number_of_columns-1}] [expr {$output_ports_start-1}] early_fall_slew] 0 ] 0 ]
+set input_late_rise_slew_start [lindex [lindex [constraints search rect $clock_start_column $input_ports_start [expr {$number_of_columns-1}] [expr {$output_ports_start-1}] late_rise_slew] 0 ] 0 ]
+set input_late_fall_slew_start [lindex [lindex [constraints search rect $clock_start_column $input_ports_start [expr {$number_of_columns-1}] [expr {$output_ports_start-1}] late_fall_slew] 0 ] 0 ]
+
+
+
+set related_clock [lindex [lindex [constraints search rect $clock_start_column $input_ports_start [expr {$number_of_columns-1}] [expr {$output_ports_start-1}] clocks] 0] 0]
+set i [expr {$input_ports_start+1}]
+set end_of_ports [expr {$output_ports_start-1}]
+puts "\nInfo-SDC: Working on IO constarints......."
+puts "\nInfo-SDC: Categorizing input ports as bits and bussed"
+
+while { $i < $end_of_ports} {
+#-----------------------optional script -----------differentiating input ports as bussed and bits----#
+
+#--------------------------------------------------------------#
+set netlist [glob -dir $NetlistDirectory *.v]
+set tmp_file [open /tmp/1 w]
+foreach f $netlist {
+	set fd [open $f]
+	puts "reading file $f"
+	while {[gets $fd line] != -1} {
+		set pattern1 " [constraints get cell 0 $i];"
+		if {[regexp -all -- $pattern1 $line]} {
+			puts "\npattern1 \"$pattern1\" found and matching line in verilog file \"$f\" is \"$line\""
+			set pattern2 [lindex [split $line ";"] 0]
+			puts "\ncreating pattern2 by splitting pattern1 using semi-colon as delimiter => \"$pattern2\""
+			
+			if {[regexp -all {input} [lindex [split $pattern2 "\S+"] 0]]} {
+			puts "\nout of all patterns, \"$pattern2\" has matching string \"input\".So preserving this line and ignoring others"
+				set s1 "[lindex [split $pattern2 "\S+"] 0] [lindex [split $pattern2 "\S+"] 1] [lindex [split $pattern2 "\S+"] 2]"
+				puts "printing first 3 elements of pattern2 as \"$s1\" using space as delimiter"
+				puts -nonewline $tmp_file "\n[regsub -all {\s+} $s1 " "]"
+				puts "replace multiple spaces in s1 by single space and reformat as \"[regsub -all {\s+} $s1 " "]\""
+			}
+		}
+	}
+close $fd
+}
+close $tmp_file
+set tmp_file [open /tmp/1 r]
+#puts "reading [read $tmp_file]"
+#puts "reading /tmp/1 file as [split [read $tmp_file] \n]"
+#puts "sorting /tmp/1 content as [lsort -unique [split [read $tmp_file] \n ]]"
+#puts "joining /tmp/1 as [join [lsort -unique [split [read $tmp_file] \n ]] \n]"
+set tmp2_file [open /tmp/2 w]
+puts -nonewline $tmp2_file "[join [lsort -unique [split [read $tmp_file] \n]] \n]"
+close $tmp_file
+close $tmp2_file
+set tmp2_file [open /tmp/2 r]
+#puts "count is [llength [read $tmp2_file]]"
+set count [llength [read $tmp2_file]]
+#puts "splitting content of tmp_2 using space and counting number of elements as $count"
+if {$count > 2} {
+	set inp_ports [concat [constraints get cell 0 $i]*]
+	puts "bussed"
+} else {
+	set inp_ports [constraints get cell 0 $i]
+	puts "not bussed"
+}
+	puts "input port name is $inp_ports since count is $count\n"
+	puts -nonewline $sdc_file "\n set_input_delay -clock \[get_clocks [constraints get cell $related_clock $i]\] -min -rise -source_latency_included [constraints get cell $input_early_rise_delay_start $i] \[get_ports $inp_ports\]"
+	puts -nonewline $sdc_file "\n set_input_delay -clock \[get_clocks [constraints get cell $related_clock $i]\] -min -fall -source_latency_included [constraints get cell $input_early_fall_delay_start $i] \[get_ports $inp_ports\]"
+	puts -nonewline $sdc_file "\n set_input_delay -clock \[get_clocks [constraints get cell $related_clock $i]\] -max -rise -source_latency_included [constraints get cell $input_late_rise_delay_start $i] \[get_ports $inp_ports\]"
+	puts -nonewline $sdc_file "\n set_input_delay -clock \[get_clocks [constraints get cell $related_clock $i]\] -max -fall -source_latency_included [constraints get cell $input_late_fall_delay_start $i] \[get_ports $inp_ports\]"
+
+
+	puts -nonewline $sdc_file "\n set_input_transition -clock \[get_clocks [constraints get cell $related_clock $i]\] -min -rise -source_latency_included [constraints get cell $input_early_rise_slew_start $i] \[get_ports $inp_ports\]"
+	puts -nonewline $sdc_file "\n set_input_delay -clock \[get_clocks [constraints get cell $related_clock $i]\] -min -fall -source_latency_included [constraints get cell $input_early_fall_slew_start $i] \[get_ports $inp_ports\]"
+	puts -nonewline $sdc_file "\n set_input_delay -clock \[get_clocks [constraints get cell $related_clock $i]\] -max -rise -source_latency_included [constraints get cell $input_late_rise_slew_start $i] \[get_ports $inp_ports\]"
+	puts -nonewline $sdc_file "\n set_input_delay -clock \[get_clocks [constraints get cell $related_clock $i]\] -max -fall -source_latency_included [constraints get cell $input_late_fall_slew_start $i] \[get_ports $inp_ports\]"
+
+	set i [expr {$i+1}]
+}
+close $tmp2_file
+```
+
+
+## Screenshots
+
+
+![Screenshot 2023-08-28 051110](https://github.com/nikhil5-b/VSD-5-DAYS-TCL-SCRIPTING-WORKSHOP/assets/52079538/32c7267e-ef0e-499e-a0fa-d98908809109)
+
+
+![Screenshot 2023-08-28 053657](https://github.com/nikhil5-b/VSD-5-DAYS-TCL-SCRIPTING-WORKSHOP/assets/52079538/b070bb73-ee6a-4440-8570-db26317feeab)
+
+![Screenshot 2023-08-28 062709](https://github.com/nikhil5-b/VSD-5-DAYS-TCL-SCRIPTING-WORKSHOP/assets/52079538/82d40860-48cd-4a87-9417-227d4f01167a)
+
+![Screenshot 2023-08-28 063822](https://github.com/nikhil5-b/VSD-5-DAYS-TCL-SCRIPTING-WORKSHOP/assets/52079538/201278a7-f2e0-4405-a712-9576c82c83cf)
+
+![Screenshot 2023-08-28 063852](https://github.com/nikhil5-b/VSD-5-DAYS-TCL-SCRIPTING-WORKSHOP/assets/52079538/1b85ecfc-0709-4a9f-9cab-d6671ca9edc8)
+
+![Screenshot 2023-08-28 085032](https://github.com/nikhil5-b/VSD-5-DAYS-TCL-SCRIPTING-WORKSHOP/assets/52079538/d17ce078-9a09-40ae-8ad6-e4c5d0cbefca)
+
+
 
 
