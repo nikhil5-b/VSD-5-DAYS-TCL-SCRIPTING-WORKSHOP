@@ -307,6 +307,9 @@ close $tmp2_file
 
 ![Screenshot 2023-08-28 063852](https://github.com/nikhil5-b/VSD-5-DAYS-TCL-SCRIPTING-WORKSHOP/assets/52079538/1b85ecfc-0709-4a9f-9cab-d6671ca9edc8)
 
+
+3.SDC Contents W.R.T output ports
+
 ![Screenshot 2023-08-28 085032](https://github.com/nikhil5-b/VSD-5-DAYS-TCL-SCRIPTING-WORKSHOP/assets/52079538/d17ce078-9a09-40ae-8ad6-e4c5d0cbefca)
 
 
