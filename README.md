@@ -55,7 +55,8 @@ Note : Make sure the file is executable by using the above command
 
 ![Screenshot 2023-08-24 185627](https://github.com/nikhil5-b/VSD-5-DAYS-TCL-SCRIPTING-WORKSHOP/assets/52079538/cf8cc532-e264-4bba-ac77-01747b318060)
 
-![Screenshot 2023-08-28 223439](https://github.com/nikhil5-b/VSD-5-DAYS-TCL-SCRIPTING-WORKSHOP/assets/52079538/6da5b9f0-c725-4fad-8b99-5d8ea8e42548)
+
+![Screenshot 2023-08-28 223622](https://github.com/nikhil5-b/VSD-5-DAYS-TCL-SCRIPTING-WORKSHOP/assets/52079538/d14fcc6c-abe1-436d-9ece-89b4491879f1)
 
 Source the UNIX shell to TCL script by passing the required .csv file:
 
