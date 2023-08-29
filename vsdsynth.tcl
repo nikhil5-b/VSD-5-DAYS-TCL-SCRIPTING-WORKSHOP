@@ -455,3 +455,224 @@ if { $my_err } {
 }
 puts "\nINfo: Please find the hierarchy check details in [file normalize $OutputDirectory/$DesignName.hierarchy_check.log] for more info"
 cd $working_dir
+
+#--------------------------Main synthesis script-----------------------------#
+puts "\nInfo: Creating main synthesis script to be used by Yosys"
+set data "read_liberty -lib -ignore_miss_dir -setattr blackbox ${LateLibraryPath}"
+set filename "$DesignName.ys"
+set fileId [open $OutputDirectory/$filename "w"]
+puts -nonewline $fileId $data
+
+set netlist [glob -dir $NetlistDirectory *.v]
+foreach f $netlist {
+	set data $f
+	puts -nonewline $fileId "\nread_verilog $f"
+}
+
+puts -nonewline $fileId "\nhierarchy -top $DesignName"
+puts -nonewline $fileId "\nsynth -top $DesignName"
+puts -nonewline $fileId "\nsplitnets -ports -format __\ndfflibmap -liberty ${LateLibraryPath}\nopt"
+puts -nonewline $fileId "\nabc -liberty ${LateLibraryPath}"
+puts -nonewline $fileId "\nflatten"
+puts -nonewline $fileId "\nclean -purge \niopadmap -outpad BUFX2 A:Y -bits \nopt \nclean"
+puts -nonewline $fileId "\nwrite_verilog $OutputDirectory/$DesignName.synth.v"
+close $fileId
+puts "\nInfo: Synthesis script created and can be accessed from path $OutputDirectory/$DesignName.ys"
+puts "\nInfo: Running synthesis............."
+
+
+
+#----------------------Run synthesis script using yosys----------------------#
+if {[catch { exec yosys -s $OutputDirectory/$DesignName.ys >& $OutputDirectory/$DesignName.synthesis.log} msg]} {
+	puts "\nError: Synthesis failed due to errors. Please refer to log $OutputDirectory/$DesignName.synthesis.log for errors"
+	puts "\nInfo: Please refer to $OutputDirectory/$DesignName.synthesis.log"
+	exit
+	} else {
+	puts "\nInfo: Synthesis finished successfully"
+	puts "\nInfo: Please refer to $OutputDirectory/$DesignName.synthesis.log"
+	}
+
+#-------Editing  synth.v to Opentimer format---------#
+set fileId [open /tmp/1 "w"]
+puts -nonewline $fileId [exec grep -v -w "*" $OutputDirectory/$DesignName.synth.v]
+close $fileId
+
+set output [open $OutputDirectory/$DesignName.final.synth.v "w"]
+
+set filename "/tmp/1"
+set fid [open $filename r]
+	while {[gets $fid line] != -1} {
+	puts -nonewline $output [string map {"\\" " "} $line]
+	puts -nonewline $output "\n"
+}
+close $fid 
+close $output
+
+puts "\ninfo: Please find the synthesized netlist for $DesignName at below path. You can use this netlist for STA or PNR"
+puts "\n$OutputDirectory/$DesignName.final.synth.v"
+
+
+#---------------STA using Opentimer----------------------#
+puts "\nInfo: Timing Analysis Started ... "
+puts "\nInfo: Initializing number of threads, libraries, sdc, verilog netlist path..."
+source /home/vsduser/vsdsynth/procs/reopenStdout.proc
+source /home/vsduser/vsdsynth/procs/set_num_threads.proc
+reopenStdout $OutputDirectory/$DesignName.conf
+set_multi_cpu_usage -localCpu 8
+
+source /home/vsduser/vsdsynth/procs/read_lib.proc
+read_lib -early /home/vsduser/vsdsynth/osu018_stdcells.lib
+
+read_lib -late /home/vsduser/vsdsynth/osu018_stdcells.lib
+
+source /home/vsduser/vsdsynth/procs/read_verilog.proc
+read_verilog $OutputDirectory/$DesignName.final.synth.v
+
+source /home/vsduser/vsdsynth/procs/read_sdc.proc
+read_sdc $OutputDirectory/$DesignName.sdc
+reopenStdout /dev/tty
+
+if {$enable_prelayout_timing == 1} {
+	puts "\nInfo: enable prelayout_timing is $enable_prelayout_timing. Enabling zero-wire load parasitics"
+	set spef_file [open $OutputDirectory/$DesignName.spef w]
+	puts $spef_file "*SPEF \"IEEE 1481-1998\""
+	puts $spef_file "*DESIGN \"$DesignName\""
+	puts $spef_file "*DATE \"Sun Jul 09 11:59:00 2023\""
+	puts $spef_file "*VENDOR \"VLSI System Design\""
+	puts $spef_file "*PROGRAM \"TCL Workshop\""
+	puts $spef_file "*DATE \"0.0\""
+	puts $spef_file "*DESIGN FLOW \"NETLIST_TYPE_VERILOG\""
+	puts $spef_file "*DIVIDER /"
+	puts $spef_file "*DELIMITER : "
+	puts $spef_file "*BUS_DELIMITER [ ]"
+	puts $spef_file "*T_UNIT 1 PS"
+	puts $spef_file "*C_UNIT 1 FF"
+	puts $spef_file "*R_UNIT 1 KOHM"
+	puts $spef_file "*L_UNIT 1 UH"
+}
+close $spef_file
+
+set conf_file [open $OutputDirectory/$DesignName.conf a]
+puts $conf_file "set_spef_fpath $OutputDirectory/$DesignName.spef"
+puts $conf_file "init_timer"
+puts $conf_file "report_timer"
+puts $conf_file "report_wns"
+puts $conf_file "report_tns"
+puts $conf_file "report_worst_paths -numPaths 10000 " 
+close $conf_file
+
+
+#-------------------Fingind STA runtime----------------------#
+set tcl_precision 3
+set time_elapsed_in_us [time {exec /home/vsduser/OpenTimer-1.0.5/bin/OpenTimer < $OutputDirectory/$DesignName.conf >& $OutputDirectory/$DesignName.results} 1]
+#puts "time_elapsed_in_us is $time_elapsed_in_us"
+set time_elapsed_in_sec "[expr {[lindex $time_elapsed_in_us 0]/100000}]sec"
+
+puts "\nInfo: STA finished in $time_elapsed_in_sec seconds"
+
+
+#---------------Finding  worst output violation-------------------#
+set worst_RAT_slack "-"
+set report_file [open $OutputDirectory/$DesignName.results r]
+set pattern {RAT}
+while {[gets $report_file line] != -1} {
+	if {[regexp $pattern $line]} {
+		set worst_RAT_slack "[expr {[lindex $line 3]/1000}]ns"
+		break
+	} else {
+		continue
+	}
+}
+close $report_file
+
+#--------------Finding number of output violations-----------------#	
+set report_file [open $OutputDirectory/$DesignName.results r]
+set count 0
+while {[gets $report_file line] != -1} {
+	incr count [regexp -all -- $pattern $line]
+}
+set Number_output_violations $count
+close $report_file
+
+#----------Findind worst setup violation--------------------------#
+set worst_negative_setup_slack "-"
+set report_file [open $OutputDirectory/$DesignName.results r] 
+set pattern {Setup}
+while {[gets $report_file line] != -1} {
+	if {[regexp $pattern $line]} {
+		set worst_negative_setup_slack "[expr {[lindex $line 3]/1000}]ns"
+		break
+	} else {
+		continue
+	}
+}
+close $report_file
+
+#--------------Finding number of setup violations------------------#
+set report_file [open $OutputDirectory/$DesignName.results r]
+set count 0
+while {[gets $report_file line] != -1} {
+	incr count [regexp -all -- $pattern $line]
+}
+set Number_of_setup_violations $count
+close $report_file
+
+#-------------------Findind worst hold violations-------------------#
+set worst_negative_hold_slack "-"
+set report_file [open $OutputDirectory/$DesignName.results r] 
+set pattern {Hold}
+while {[gets $report_file line] != -1} {
+	if {[regexp $pattern $line]} {
+		set worst_negative_hold_slack "[expr {[lindex $line 3]/1000}]ns"
+		break
+	} else {
+		continue
+	}
+}
+close $report_file
+
+#--------------Finding number of hold violations-------------------#
+set report_file [open $OutputDirectory/$DesignName.results r]
+set count 0
+while {[gets $report_file line] != -1} {
+	incr count [regexp -all -- $pattern $line]
+}
+set Number_of_hold_violations $count
+close $report_file
+
+#--------------------Finding number of instances-----------------#
+set pattern {Num of gates}
+set report_file [open $OutputDirectory/$DesignName.results r] 
+while {[gets $report_file line] != -1} {
+	if {[regexp -all -- $pattern $line]} {
+		set Instance_count "[lindex [join $line " "] 4 ]"
+		break
+	} else {
+		continue
+	}
+}
+close $report_file
+
+puts "\n"
+puts "***Quality of results (QOR) using Laksh -Tcl automation***"
+puts "\n"
+puts "Design name (DesignName) is \{$DesignName\}"
+puts "Run time (Time_elapsed_in_sec) is \{$time_elapsed_in_sec\}"
+puts "Instant count (Instance_count) is \{$Instance_count\}"
+puts "WNS Setup (worst_negative_setup_slack) is \{$worst_negative_setup_slack\}"
+puts "FEP Setup (Number_of_setup_violations) is \{$Number_of_setup_violations\}"
+puts "WNS Hold (Worst_negative_hold_slack) is \{$worst_negative_hold_slack\}"
+puts "FEP Hold (Number_of_hold_violations) is \{$Number_of_hold_violations\}"
+puts "WNS RAT (Worst_RAT_slack) is \{$worst_RAT_slack\}"
+puts "FEP RAT (Number_output_violations) is \{$Number_output_violations\}"
+
+puts "\n"
+puts "						***PRELAYOUT TIMING RESULTS*** 					"
+set formatStr "%15s %15s %15s %15s %15s %15s %15s %15s %15s"
+
+puts [format $formatStr "----------" "-------" "--------------" "---------" "---------" "--------" "--------" "-------" "-------"]
+puts [format $formatStr "DesignName" "Runtime" "Instance Count" "WNS Setup" "FEP Setup" "WNS Hold" "FEP Hold" "WNS RAT" "FEP RAT"]
+puts [format $formatStr "----------" "-------" "--------------" "---------" "---------" "--------" "--------" "-------" "-------"]
+foreach design_name $DesignName runtime $time_elapsed_in_sec instance_count $Instance_count wns_setup $worst_negative_setup_slack fep_setup $Number_of_setup_violations wns_hold $worst_negative_hold_slack fep_hold $Number_of_hold_violations wns_rat $worst_RAT_slack fep_rat $Number_output_violations {
+	puts [format $formatStr $design_name $runtime $instance_count $wns_setup $fep_setup $wns_hold $fep_hold $wns_rat $fep_rat]
+}
