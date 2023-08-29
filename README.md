@@ -428,7 +428,7 @@ cd $working_dir
 
 
 ![Screenshot 2023-08-29 143929](https://github.com/nikhil5-b/VSD-5-DAYS-TCL-SCRIPTING-WORKSHOP/assets/52079538/3c3ccb30-081d-4beb-b3f0-61036af5b829)
-![Screenshot 2023-08-29 135546](https://github.com/nikhil5-b/VSD-5-DAYS-TCL-SCRIPTING-![Screenshot 2023-08-29 220600](https://github.com/nikhil5-b/VSD-5-DAYS-TCL-SCRIPTING-WORKSHOP/assets/52079538/52d0a118-d56e-4938-9477-50e8e2e2fa4b)
+![Screenshot 2023-08-29 135546](https://github.com/nikhil5-b/VSD-5-DAYS-TCL-SCRIPTING-![Screenshot 2023-08-29 220600](https://github.com/nikhil5-b/VSD-5-DAYS-TCL-
 ![Screenshot 2023-08-29 215420](https://github.com/nikhil5-b/VSD-5-DAYS-TCL-SCRIPTING-WORKSHOP/assets/52079538/ef52a29f-24d5-4160-b590-61b3e74eea77)
-WORKSHOP/assets/52079538/a371c2f9-5661-4c4d-8723-9e91e24867fc)
 ![Screenshot 2023-08-29 135239](https://github.com/nikhil5-b/VSD-5-DAYS-TCL-SCRIPTING-WORKSHOP/assets/52079538/596133b0-a342-4795-a5fe-08afe32afc27)
+![Screenshot 2023-08-29 220600](https://github.com/nikhil5-b/VSD-5-DAYS-TCL-SCRIPTING-WORKSHOP/assets/52079538/a63ac631-6e18-4b77-8225-14b5bfc332f7)
