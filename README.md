@@ -419,3 +419,16 @@ cd $working_dir
 ![Screenshot 2023-08-28 170140](https://github.com/nikhil5-b/VSD-5-DAYS-TCL-SCRIPTING-WORKSHOP/assets/52079538/7844da13-6bcb-4219-aff1-f48f9998551c)
 
 ## <ins>**Day 5**<ins>
+
+• Create a constraint .timing file from the .sdc file which can be applied to OpenTimer tool
+• Take care of all bits of the bus while creating the .timing file 
+• Create a .conf file input script for the OpenTimer tool
+• Quality of Results (QoR) Generation
+
+
+
+![Screenshot 2023-08-29 143929](https://github.com/nikhil5-b/VSD-5-DAYS-TCL-SCRIPTING-WORKSHOP/assets/52079538/3c3ccb30-081d-4beb-b3f0-61036af5b829)
+![Screenshot 2023-08-29 135546](https://github.com/nikhil5-b/VSD-5-DAYS-TCL-SCRIPTING-![Screenshot 2023-08-29 220600](https://github.com/nikhil5-b/VSD-5-DAYS-TCL-SCRIPTING-WORKSHOP/assets/52079538/52d0a118-d56e-4938-9477-50e8e2e2fa4b)
+![Screenshot 2023-08-29 215420](https://github.com/nikhil5-b/VSD-5-DAYS-TCL-SCRIPTING-WORKSHOP/assets/52079538/ef52a29f-24d5-4160-b590-61b3e74eea77)
+WORKSHOP/assets/52079538/a371c2f9-5661-4c4d-8723-9e91e24867fc)
+![Screenshot 2023-08-29 135239](https://github.com/nikhil5-b/VSD-5-DAYS-TCL-SCRIPTING-WORKSHOP/assets/52079538/596133b0-a342-4795-a5fe-08afe32afc27)
