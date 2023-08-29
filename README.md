@@ -78,7 +78,7 @@ tclsh vsdsynth.tcl $argv[1]
 
 
 
-<ins>**Day 2**<ins>
+## <ins>**Day 2**<ins>
 
 
 <br>
@@ -103,7 +103,7 @@ Check the existence of directories/files in the obtained path post normalizing
 ![Screenshot 2023-08-26 035911](https://github.com/nikhil5-b/VSD-5-DAYS-TCL-SCRIPTING-WORKSHOP/assets/52079538/3a001da5-d265-4441-9700-e36b3d148f31)
 
 
-<ins>**Day 3**<ins>
+## <ins>**Day 3**<ins>
 
 
 Tasks of the Day :
@@ -334,7 +334,7 @@ close $tmp2_file
 
 
 
-## Day 4
+## <ins>**Day 4**<ins>
 
 ## YOSYS (Yosys Open SYnthesis Suite)
 YOSYS is an open-source RTL synthesis and formal verification framework for digital circuits. It takes RTL descriptions (e.g., Verilog) as input and performs synthesis to generate a gate-level netlist. YOSYS supports technology mapping, optimization, and formal verification. It has a scripting interface, integrates with other EDA tools, and is widely used in academia and industry for digital design tasks.
@@ -419,3 +419,5 @@ cd $working_dir
 
 
 ![Screenshot 2023-08-28 170140](https://github.com/nikhil5-b/VSD-5-DAYS-TCL-SCRIPTING-WORKSHOP/assets/52079538/7844da13-6bcb-4219-aff1-f48f9998551c)
+
+## <ins>**Day 5**<ins>
