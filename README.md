@@ -57,8 +57,6 @@ Note : Make sure the file is executable by using the above command
 
 
 **Case 2: User gives .csv file as an argument but a wrong one or the path to .csv file is incorrect.**
-![Screenshot 2023-08-24 185411](https://github.com/nikhil5-b/VSD-5-DAYS-TCL-SCRIPTING-WORKSHOP/assets/52079538/f0d003f4-e82c-4507-8e1a-926753f4b4b2)
-
 
 ![Screenshot 2023-08-28 223334](https://github.com/nikhil5-b/VSD-5-DAYS-TCL-SCRIPTING-WORKSHOP/assets/52079538/2371a620-0f8a-4fb0-8b0e-5191f8b7153e)
 
