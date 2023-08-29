@@ -47,6 +47,44 @@ chmod -R 777 vsdsynth.tcl
 
 Note : Make sure the file is executable by using the above command
 
+## Code Usage/Examples
+
+```javascript
+if ($#argv != 1) then
+	echo "Info: please provide the csv file"
+	exit 1
+endif
+
+if (! -f $argv[1] || $argv[1] == "-help" ) then
+   if($argv[1] != "-help") then
+   	echo "Error: Cannot find csv file $argv[1]. Exiting...."
+	exit 1
+   else
+   	echo USAGE: ./vsdsynth \<csv file\>
+	echo
+	echo         where \<csv file\> consists of 2 columns, below keyword being in 1st column and  is case Sensitive.Please request VSD team for sample csv file
+
+	echo
+	echo         \<Design name\> is the name of top level module
+	echo
+	echo         \<output Directory\> is the name of output directory where you want to dump synthesis script,synthesized netlist and timing reports
+	echo
+	echo         \<Netlist Directory\> is the name of directory where all RTL netlist are present
+	echo
+	echo         \<Early Library Path\> is the file path of the early cell library to be used for STA
+	echo
+	echo         \<Late Library Path\> is the path of the late cell library to be used for Sta
+	echo
+	echo         \<Constarints file\> is csv file path of constraints to be used for STA
+	echo
+	echo
+	exit 1
+	endif
+else
+	tclsh vsdsynth.tcl $argv[1]
+endif
+```
+
 **Case 1: User doesn't give any argument to the TCL script.** 
 
 
