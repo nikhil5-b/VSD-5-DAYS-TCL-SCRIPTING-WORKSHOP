@@ -421,8 +421,11 @@ cd $working_dir
 ## <ins>**Day 5**<ins>
 
 • Create a constraint .timing file from the .sdc file which can be applied to OpenTimer tool
+
 • Take care of all bits of the bus while creating the .timing file 
+
 • Create a .conf file input script for the OpenTimer tool
+
 • Quality of Results (QoR) Generation
 
 ![Screenshot 2023-08-29 230317](https://github.com/nikhil5-b/VSD-5-DAYS-TCL-SCRIPTING-WORKSHOP/assets/52079538/63d5be54-559e-4df3-9fb5-76d2fb37b6b8)
