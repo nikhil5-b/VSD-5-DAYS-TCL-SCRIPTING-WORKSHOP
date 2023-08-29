@@ -120,7 +120,55 @@ tclsh vsdsynth.tcl $argv[1]
 <br>
 
 Extracting Data from openMSP430_design_details.csv File
+## Code Usage/Examples
 
+```javascript
+set filename [lindex $argv 0]
+puts "initialize the package for csv  (comma seperated by value) and creation of matrix "
+package require csv
+package require struct::matrix
+puts "package include now create the instance of matrix"
+struct::matrix m
+puts "assign file with the filename"
+set f [open $filename]
+puts "create automatic array of matrix with file as input"
+csv::read2matrix $f m , auto 
+close $f
+puts "initialize columns"
+set columns [m columns]
+#m add columns $columns if auto not been used in the above#
+m link my_arr
+puts "initialize rows"
+set num_of_rows [m rows]
+set i 0
+
+
+
+puts "initialize all variable with the all values one by one using while loop"
+
+while {$i < $num_of_rows} {
+	puts "\nInfo: Setting $my_arr(0,$i) as '$my_arr(1,$i)'"
+	if {$i == 0} {
+		set [string map {" " ""} $my_arr(0,$i)] $my_arr(1,$i)
+	} else {
+		set [string map {" " ""} $my_arr(0,$i)] [file normalize $my_arr(1,$i)]
+	}
+		set i [expr {$i+1}]
+}
+
+
+
+puts "\n"
+puts "Initilization completed loop has been ended"
+puts "\n Info: Below are the list of initial variables and their values.user can use these variables for further debug "
+puts "\n"
+puts "DesignName = $DesignName"
+puts "OutputDirectory = $OutputDirectory"
+puts "NetlistDirectory = $NetlistDirectory"
+puts "EarlyLibraryPath = $EarlyLibraryPath"
+puts "LateLibraryPath = $LateLibraryPath"
+puts "ConstraintsFile = $ConstraintsFile"
+```
 
 Here is how the openMSP430_design_details.csv file looks like:
 
