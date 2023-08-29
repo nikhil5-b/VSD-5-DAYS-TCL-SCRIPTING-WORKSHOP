@@ -259,3 +259,4 @@ puts "set_timing_fpath $sdc_dirname/$sdc_filename.timing"
 }
 set working_dir [exec pwd]
 read_sdc $working_dir/outdir_openMSP430/openMSP430.sdc
+#read_sdc /home/vsduser/vsdsynth/outdir_openMSP430/openMSP430.sdc
