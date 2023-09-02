@@ -8,7 +8,7 @@
 **Acknowledgements: TCL Workshop by Mr. Kunal Ghosh , VLSI System Design**
 
 
-## **Obejctive :**
+## **Objective :**
 
 Create a unique User Interface(UI) that takes RTL netlist & SDC constraints as inputs, and generate synthesized netlsit and Pre-layout timing report as an output. It should use Yosys Open source tool for synthesis and Opentimer to generate pre-layout timing reports
 
