@@ -17,7 +17,7 @@ echo "          *        ******  **** ***     #     **      ********** *********
 echo " **************************************************************************************** "
 echo " **************************************************************************************** "
 echo " **************************************************************************************** "
-echo "                  starting with the company informstion"
+echo "                  starting with the company information"
 
 echo
 echo "   An unique User Interface(UI)that will take netlist and SDC constraints as an input, and will"
