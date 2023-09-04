@@ -196,8 +196,8 @@ set clock_late_fall_slew_start [lindex [lindex [constraints search rect $clock_s
 puts "\nclock_late_fall_slew = $clock_late_fall_slew_start"
 
 # Finding column number starting for frequency and duty cycle in CLOCKS section only
-set clocks_freq_start_column [lindex [lindex [constraints search rect $clocks_start_column $clocks_start [expr {$number_of_columns-1}] [expr {$inputs_ports_start-1}] frequency] 0 ] 0 ]
-set clocks_dc_start_column [lindex [lindex [constraints search rect $clocks_start_column $clocks_start [expr {$number_of_columns-1}] [expr {$inputs_ports_start-1}] duty_cycle] 0 ] 0 ]
+#set clocks_freq_start_column [lindex [lindex [constraints search rect $clocks_start_column $clocks_start [expr {$number_of_columns-1}] [expr {$inputs_ports_start-1}] frequency] 0 ] 0 ]
+#set clocks_dc_start_column [lindex [lindex [constraints search rect $clocks_start_column $clocks_start [expr {$number_of_columns-1}] [expr {$inputs_ports_start-1}] duty_cycle] 0 ] 0 ]
 
 
 set sdc_file [open $OutputDirectory/$DesignName.sdc "w" ]
@@ -205,9 +205,9 @@ set i [expr {$clock_start+1}]
 set end_of_ports [expr {$input_ports_start-1}]
 puts "\n Info -SDC : Working on clock constraints....."
 while { $i < $end_of_ports } {
-#	puts -nonewline $sdc_file "\n create_clock -name [constraints get cell 0 $i] -period [constraints get cell 1 $i] -waveform \{0 [expr {[constraints get cell 1 $i] * [constraints get cell 2 $i]/100}]\} \[get_ports [constraints get cell 0 $i]\]"
+	puts -nonewline $sdc_file "\n create_clock -name [constraints get cell 0 $i] -period [constraints get cell 1 $i] -waveform \{0 [expr {[constraints get cell 1 $i] * [constraints get cell 2 $i]/100}]\} \[get_ports [constraints get cell 0 $i]\]"
 
-	puts -nonewline $sdc_file "\ncreate_clock -name [concat [m1 get cell 0 $i]_yui] -period [m1 get cell $clocks_freq_start_column $i] -waveform \{0 [expr {[m1 get cell $clocks_freq_start_column $i]*[m1 get cell $clocks_dc_start_column $i]/100}]\} \[get_ports [m1 get cell 0 $i]\]"
+#	puts -nonewline $sdc_file "\ncreate_clock -name [concat [m1 get cell 0 $i]_yui] -period [m1 get cell $clocks_freq_start_column $i] -waveform \{0 [expr {[m1 get cell $clocks_freq_start_column $i]*[m1 get cell $clocks_dc_start_column $i]/100}]\} \[get_ports [m1 get cell 0 $i]\]"
 
 	puts -nonewline $sdc_file "\n set_clock_transition -rise -min [ constraints get cell $clock_early_rise_slew_start $i] \[get_clocks [constraints get cell 0 $i]\]"
 	puts -nonewline $sdc_file "\n set_clock_transition -fall -min [ constraints get cell $clock_early_fall_slew_start $i] \[get_clocks [constraints get cell 0 $i]\]"
